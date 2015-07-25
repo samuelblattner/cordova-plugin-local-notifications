@@ -37,12 +37,15 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 - (void)                    application:(UIApplication*)application
     didRegisterUserNotificationSettings:(UIUserNotificationSettings*)settings
 {
+    NSLog(@"In native didregister method");
     NSNotificationCenter* center = [NSNotificationCenter
                                     defaultCenter];
 
+    NSLog(@"REPOST");
     // re-post (broadcast)
     [center postNotificationName:UIApplicationRegisterUserNotificationSettings
                           object:settings];
+    NSLog(@"After repost");
 }
 #endif
 
