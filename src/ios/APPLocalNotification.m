@@ -69,6 +69,7 @@
  */
 - (void) schedule:(CDVInvokedUrlCommand*)command
 {
+    NSLog(@"Scheduling notification");
     NSArray* notifications = command.arguments;
 
     [self.commandDelegate runInBackground:^{
@@ -88,6 +89,8 @@
 
         [self execCallback:command];
     }];
+
+    NSLog(@"Scheduled notificaiton");
 }
 
 /**

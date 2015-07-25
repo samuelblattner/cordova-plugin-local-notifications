@@ -78,6 +78,8 @@ exports.schedule = function (opts, callback, scope) {
             this.convertProperties(properties);
         }
 
+        log('Notification', 'Executing schedule');
+        alert('Executing schedule');
         this.exec('schedule', notifications, callback, scope);
     }, this);
 };
