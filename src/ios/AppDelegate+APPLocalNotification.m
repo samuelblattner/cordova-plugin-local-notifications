@@ -29,7 +29,7 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 
 @implementation AppDelegate (APPLocalNotification)
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+
 /**
  * Tells the delegate what types of notifications may be used
  * to get the user’s attention.
@@ -47,6 +47,5 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
                           object:settings];
     NSLog(@"After repost");
 }
-#endif
 
 @end
