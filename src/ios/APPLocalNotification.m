@@ -393,6 +393,7 @@
  */
 - (void) hasPermission:(CDVInvokedUrlCommand*)command
 {
+    NSLog(@"In has permission.");
     [self.commandDelegate runInBackground:^{
         CDVPluginResult* result;
         BOOL hasPermission;
@@ -412,15 +413,21 @@
  */
 - (void) registerPermission:(CDVInvokedUrlCommand*)command
 {
+    NSLog(@"In registerPermission command.");
     if ([[UIApplication sharedApplication]
          respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
+        NSLog(@"Response to selector");
         _command = command;
 
+        NSLog(@"Going to run in background");
         [self.commandDelegate runInBackground:^{
+            NSLog(@"Now running in background.");
             [self.app registerPermissionToScheduleLocalNotifications];
+            NSLog(@"Register method called");
         }];
     } else {
+        NSLog(@"Not responding to selector);
         [self hasPermission:command];
     }
 }
