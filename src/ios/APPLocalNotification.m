@@ -572,8 +572,10 @@
  */
 - (void) didRegisterUserNotificationSettings:(UIUserNotificationSettings*)settings
 {
+    NSLog(@"Notification settings registered!!!!");
     if (_command)
     {
+        NSLog(@"Has command");
         [self hasPermission:_command];
         _command = NULL;
     }

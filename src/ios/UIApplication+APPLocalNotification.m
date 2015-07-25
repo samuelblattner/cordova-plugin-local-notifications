@@ -64,12 +64,10 @@
         UIUserNotificationType types;
         UIUserNotificationSettings *settings;
 
-        NSLog(@"Before types");
-        types = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
+        settings = [[UIApplication sharedApplication]
+                    currentUserNotificationSettings];
 
-        NSLog(@"Before settings");
-        settings = [UIUserNotificationSettings settingsForTypes:types
-                                                     categories:nil];
+        types = settings.types|UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
 
         NSLog(@"Calling native");
         [[UIApplication sharedApplication]
