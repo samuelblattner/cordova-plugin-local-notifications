@@ -56,19 +56,25 @@
  */
 - (void) registerPermissionToScheduleLocalNotifications
 {
+    NSLog(@"In registerPermissionTo...");
     if ([[UIApplication sharedApplication]
          respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
+        NSLog(@"Responds to selector registerusernotificationsettings");
         UIUserNotificationType types;
         UIUserNotificationSettings *settings;
 
+        NSLog(@"Before types");
         types = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
 
+        NSLog(@"Before settings");
         settings = [UIUserNotificationSettings settingsForTypes:types
                                                      categories:nil];
 
+        NSLog(@"Calling native");
         [[UIApplication sharedApplication]
          registerUserNotificationSettings:settings];
+        NSLog(@"After calling native");
     }
 }
 
