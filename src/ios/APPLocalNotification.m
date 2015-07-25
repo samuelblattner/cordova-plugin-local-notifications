@@ -427,7 +427,7 @@
             NSLog(@"Register method called");
         }];
     } else {
-        NSLog(@"Not responding to selector);
+        NSLog(@"Not responding to selector");
         [self hasPermission:command];
     }
 }
