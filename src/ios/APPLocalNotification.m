@@ -726,9 +726,10 @@
                   args, self.applicationState];
     }
 
+    NSLog(@"Going to fire event '%@'", event);
     js = [NSString stringWithFormat:
           @"cordova.plugins.notification.local.fireEvent('%@', %@)",
-          event, params];
+          event, args];
 
     if (deviceready) {
         [self.commandDelegate evalJs:js];
