@@ -709,7 +709,7 @@
 
     if (userInfo) {
         NSString* args = [NSString stringWithFormat:@"%@", userInfo];
-        NSLog(@"Recevied remote notification with userinfo: %@", args];
+        NSLog(@"Recevied remote notification with userinfo: %@", args);
         params = [NSString stringWithFormat:
                   @"%@,'%@'",
                   args, self.applicationState];
