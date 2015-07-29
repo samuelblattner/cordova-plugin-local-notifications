@@ -729,7 +729,7 @@
     NSLog(@"Going to fire event '%@'", event);
     js = [NSString stringWithFormat:
           @"cordova.plugins.notification.local.fireEvent('%@', '%@')",
-          event, args];
+          event, params];
 
     if (deviceready) {
         [self.commandDelegate evalJs:js];
