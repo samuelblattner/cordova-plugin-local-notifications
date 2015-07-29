@@ -615,7 +615,7 @@
     [center addObserver:self
                selector:@selector(didReceiveRemoteNotification:)
                    name:UIApplicationReceivedRemoteNotification
-                   object:nil]
+                   object:nil];
 }
 
 /**
