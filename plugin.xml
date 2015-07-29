@@ -52,8 +52,6 @@
         <source-file src="src/ios/libPushWizard.a" framework="true" />
 
         <header-file src="src/ios/PushWizard.h" />
-        <header-file src="src/ios/PWPhoneGapPlugin.h" />
-        <source-file src="src/ios/PWPhoneGapPlugin.m" />
 
         <source-file src="src/ios/PWPushNotificationsBridge.h" />
         <source-file src="src/ios/PWPushNotificationsBridge.m" />

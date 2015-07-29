@@ -11,6 +11,7 @@
 static PWPushNotificationsBridge * _pwPhoneGapPlugin_ = nil;
 @implementation PWPushNotificationsBridge
 @synthesize IDPW = IDPW_;
+@synthesize userID = userID_;
 
 +(PWPushNotificationsBridge*) sharedPhoneGapPWLayer
 {
@@ -21,9 +22,10 @@ static PWPushNotificationsBridge * _pwPhoneGapPlugin_ = nil;
     return _pwPhoneGapPlugin_;
 }
 
--(void) startPWPushNotificationsWithID:(NSString*)IDString
+-(void) startPWPushNotificationsWithID:(NSString*)IDString andUserID:(NSString*)userIDString
 {
     self.IDPW = IDString;
+    self.userID = userIDString;
     [[UIApplication sharedApplication]
      registerForRemoteNotificationTypes:(UIRemoteNotificationType) (UIRemoteNotificationTypeAlert |
                                                                     UIRemoteNotificationTypeBadge |

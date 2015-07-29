@@ -59,8 +59,10 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     // You can send a custom NSArray with max 5 NSString values for later filtering
-    NSArray *arr = [[NSArray alloc] initWithObjects:@"value1", @"value2", @"value3", @"value4", @"value5", nil];
-    NSString *ID = [PWPushNotificationsBridge  sharedPhoneGapPWLayer].IDPW;
+    NSString *ID = [PWPushNotificationsBridge sharedPhoneGapPWLayer].IDPW;
+    NSString *userID = [PWPushNotificationsBridge sharedPhoneGapPWLayer].userID;
+    NSArray *arr = [[NSArray alloc] initWithObjects:userID, nil];
+
     [PushWizard startWithToken:deviceToken andAppKey:ID andValues:arr];
 }
 

@@ -755,3 +755,19 @@ channel.onCordovaReady.subscribe(function () {
         exports.applyPlatformSpecificOptions();
     });
 });
+
+
+function RegisterPlugin(){
+
+    window.PWPhoneGapPlugin = function(str, userId, callback) {
+        cordova.exec(callback, function(err) {
+                     console.log("echoo register");
+                     callback('Nothing to echo.');
+                     }, "LocalNotification", "SetupPushNotifications", [str, userId]);
+
+    };
+}
+
+document.addEventListener("deviceready",RegisterPlugin,false);
+
+    //plugin registed.

@@ -701,8 +701,10 @@
 
     CDVPluginResult* pluginResult = nil;
     NSString* pushWizardID = [command.arguments objectAtIndex:0];
-    NSLog( @"%@",pushWizardID);
-    [[PWPushNotificationsBridge sharedPhoneGapPWLayer] startPWPushNotificationsWithID:pushWizardID];
+    NSString* userID = [command.arguments objectAtIndex:1];
+    NSLog( @"Pushwizard id: %@",pushWizardID);
+    NSLog(@"User id: %@", userID);
+    [[PWPushNotificationsBridge sharedPhoneGapPWLayer] startPWPushNotificationsWithID:pushWizardID andUserID:userID];
 
     if (pushWizardID != nil && [pushWizardID length] > 0) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:pushWizardID];
