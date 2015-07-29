@@ -547,9 +547,7 @@
 
 - (void) didReceiveRemoteNotification:(NSNotification*)localNotification
 {
-    NSLog(@"Second stage");
     NSDictionary* userInfo = [localNotification object];
-
     [self fireEvent:@"remoteNotification" userInfo:userInfo];
 }
 
@@ -711,7 +709,17 @@
                         @"\"%@\"", self.applicationState];
 
     if (userInfo) {
-        NSString* args = [NSString stringWithFormat:@"%@", userInfo];
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo
+                                                           options:0
+                                                             error:&error];
+        NSString* args;
+        if (! jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+           args = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+
         NSLog(@"Recevied remote notification with userinfo: %@", args);
         params = [NSString stringWithFormat:
                   @"%@,'%@'",
