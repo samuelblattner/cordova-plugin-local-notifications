@@ -23,6 +23,7 @@
 
 #import "AppDelegate+APPLocalNotification.h"
 #import "PWPushNotificationsBridge.h"
+#import "PushWizard.h"
 
 #import <Availability.h>
 
