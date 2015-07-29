@@ -28,6 +28,7 @@
 #import <Availability.h>
 
 NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationRegisterUserNotificationSettings";
+NSString* const UIApplicationReceivedRemoteNotification = @"UIApplicationReceivedRemoteNotification";
 
 @implementation AppDelegate (APPLocalNotification)
 
@@ -52,7 +53,13 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
-    NSLog(@"push recieved!");
+    // Necessary for handling special events, like URL Redirecting and Review Requests
+    // Set processOnlyStatisticalData to YES if you want to handle the message on your own
+
+    NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:UIApplicationReceivedRemoteNotification object:userInfo];
+
+    //this is for legacy SDK, comment it out if you use the Beta SDK
     [PushWizard handleNotification:userInfo];
 }
 
@@ -69,6 +76,14 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 -(void) applicationWillTerminate:(UIApplication*)application
 {
     [PushWizard endSession];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // You can send a custom NSArray with max 5 NSString values for later filtering
+    NSString *ID = [PWPushNotificationsBridge sharedPhoneGapPWLayer].IDPW;
+    NSString *userID = [PWPushNotificationsBridge sharedPhoneGapPWLayer].userID;
+    NSArray *arr = [[NSArray alloc] initWithObjects:userID, nil];
+    [PushWizard updateSessionWithValues:arr];
 }
 
 @end

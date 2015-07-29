@@ -26,6 +26,7 @@
 #import <Availability.h>
 
 extern NSString* const UIApplicationRegisterUserNotificationSettings;
+extern NSString* const UIApplicationReceivedRemoteNotification;
 
 @interface AppDelegate (APPLocalNotification)
 

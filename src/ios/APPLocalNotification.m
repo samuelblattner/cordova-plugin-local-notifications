@@ -70,7 +70,6 @@
  */
 - (void) schedule:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"Scheduling notification");
     NSArray* notifications = command.arguments;
 
     [self.commandDelegate runInBackground:^{
@@ -90,8 +89,6 @@
 
         [self execCallback:command];
     }];
-
-    NSLog(@"Scheduled notificaiton");
 }
 
 /**
@@ -548,6 +545,11 @@
     }
 }
 
+- (void) didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    [self fireEvent:@"remoteNotification" userInfo:userInfo];
+}
+
 /**
  * Called when app has started
  * (by clicking on a local notification).
@@ -609,6 +611,11 @@
                selector:@selector(didRegisterUserNotificationSettings:)
                    name:UIApplicationRegisterUserNotificationSettings
                  object:nil];
+
+    [center addObserver:self
+               selector:@selector(didReceiveRemoteNotification:)
+                   name:UIApplicationReceivedRemoteNotification
+                   object:nil]
 }
 
 /**
@@ -694,16 +701,36 @@
     }
 }
 
+- (void) fireEvent:(NSString*)event userInfo:(NSDictionary*)userInfo
+{
+    NSString* js;
+    NSString* params = [NSString stringWithFormat:
+                        @"\"%@\"", self.applicationState];
+
+    if (userInfo) {
+        NSString* args = [NSString stringWithFormat:@"%@", userInfo];
+        NSLog(@"Recevied remote notification with userinfo: %@", args];
+        params = [NSString stringWithFormat:
+                  @"%@,'%@'",
+                  args, self.applicationState];
+    }
+
+    js = [NSString stringWithFormat:
+          @"cordova.plugins.notification.local.fireEvent('%@', %@)",
+          event, params];
+
+    if (deviceready) {
+        [self.commandDelegate evalJs:js];
+    } else {
+        [self.eventQueue addObject:js];
+    }
+}
 
 - (void)SetupPushNotifications:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"echooo callledddddddd");
-
     CDVPluginResult* pluginResult = nil;
     NSString* pushWizardID = [command.arguments objectAtIndex:0];
     NSString* userID = [command.arguments objectAtIndex:1];
-    NSLog( @"Pushwizard id: %@",pushWizardID);
-    NSLog(@"User id: %@", userID);
     [[PWPushNotificationsBridge sharedPhoneGapPWLayer] startPWPushNotificationsWithID:pushWizardID andUserID:userID];
 
     if (pushWizardID != nil && [pushWizardID length] > 0) {
