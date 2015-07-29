@@ -55,7 +55,7 @@ NSString* const UIApplicationReceivedRemoteNotification = @"UIApplicationReceive
 {
     // Necessary for handling special events, like URL Redirecting and Review Requests
     // Set processOnlyStatisticalData to YES if you want to handle the message on your own
-
+    NSLog(@"Received remote native");
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:UIApplicationReceivedRemoteNotification object:userInfo];
 

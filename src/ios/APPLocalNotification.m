@@ -547,6 +547,7 @@
 
 - (void) didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
+    NSLog(@"Second stage");
     [self fireEvent:@"remoteNotification" userInfo:userInfo];
 }
 
