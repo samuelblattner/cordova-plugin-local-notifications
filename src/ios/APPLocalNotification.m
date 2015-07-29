@@ -545,9 +545,11 @@
     }
 }
 
-- (void) didReceiveRemoteNotification:(NSDictionary*)userInfo
+- (void) didReceiveRemoteNotification:(NSNotification*)localNotification
 {
     NSLog(@"Second stage");
+    NSDictionary* userInfo = [localNotification object];
+
     [self fireEvent:@"remoteNotification" userInfo:userInfo];
 }
 
