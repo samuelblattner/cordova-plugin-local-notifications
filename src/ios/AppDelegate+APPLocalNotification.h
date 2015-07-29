@@ -22,6 +22,7 @@
  */
 
 #import "AppDelegate.h"
+#import "PushWizard.h"
 
 #import <Availability.h>
 

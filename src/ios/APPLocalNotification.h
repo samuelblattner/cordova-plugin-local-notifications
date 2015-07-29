@@ -23,8 +23,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Cordova/CDVPlugin.h>
+#import <Cordova/CDV.h>
 
 @interface APPLocalNotification : CDVPlugin
+
+- (void)SetupPushNotifications:(CDVInvokedUrlCommand*)command;
 
 // Execute all queued events
 - (void) deviceready:(CDVInvokedUrlCommand*)command;

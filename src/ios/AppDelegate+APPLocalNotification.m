@@ -22,6 +22,7 @@
  */
 
 #import "AppDelegate+APPLocalNotification.h"
+#import "PWPushNotificationsBridge.h"
 
 #import <Availability.h>
 
@@ -29,7 +30,7 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 
 @implementation AppDelegate (APPLocalNotification)
 
-
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 /**
  * Tells the delegate what types of notifications may be used
  * to get the user’s attention.
@@ -37,15 +38,34 @@ NSString* const UIApplicationRegisterUserNotificationSettings = @"UIApplicationR
 - (void)                    application:(UIApplication*)application
     didRegisterUserNotificationSettings:(UIUserNotificationSettings*)settings
 {
-    NSLog(@"In native didregister method");
     NSNotificationCenter* center = [NSNotificationCenter
                                     defaultCenter];
 
-    NSLog(@"REPOST");
     // re-post (broadcast)
     [center postNotificationName:UIApplicationRegisterUserNotificationSettings
                           object:settings];
-    NSLog(@"After repost");
+    [application registerForRemoteNotifications];
+
+}
+#endif
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    NSLog(@"push recieved!");
+    [PushWizard handleNotification:userInfo];
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    // You can send a custom NSArray with max 5 NSString values for later filtering
+    NSArray *arr = [[NSArray alloc] initWithObjects:@"value1", @"value2", @"value3", @"value4", @"value5", nil];
+    NSString *ID = [PWPushNotificationsBridge  sharedPhoneGapPWLayer].IDPW;
+    [PushWizard startWithToken:deviceToken andAppKey:ID andValues:arr];
+}
+
+-(void) applicationWillTerminate:(UIApplication*)application
+{
+    [PushWizard endSession];
 }
 
 @end

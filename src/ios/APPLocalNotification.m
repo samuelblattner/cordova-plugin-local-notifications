@@ -26,6 +26,7 @@
 #import "AppDelegate+APPLocalNotification.h"
 #import "UIApplication+APPLocalNotification.h"
 #import "UILocalNotification+APPLocalNotification.h"
+#import "PWPushNotificationsBridge.h"
 
 @interface APPLocalNotification ()
 
@@ -692,5 +693,25 @@
         [self.eventQueue addObject:js];
     }
 }
+
+
+- (void)SetupPushNotifications:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"echooo callledddddddd");
+
+    CDVPluginResult* pluginResult = nil;
+    NSString* pushWizardID = [command.arguments objectAtIndex:0];
+    NSLog( @"%@",pushWizardID);
+    [[PWPushNotificationsBridge sharedPhoneGapPWLayer] startPWPushNotificationsWithID:pushWizardID];
+
+    if (pushWizardID != nil && [pushWizardID length] > 0) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:pushWizardID];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 
 @end
