@@ -45,10 +45,8 @@
         settings = [[UIApplication sharedApplication]
                     currentUserNotificationSettings];
 
-	NSLog(@"Settings are: %@", settings);
         types = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
 
-	NSLog(@"Types are: %@", types);
 	return YES;
         return (settings.types & types);
     } else {
