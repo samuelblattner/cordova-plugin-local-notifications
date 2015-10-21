@@ -579,7 +579,8 @@
     NSLog(@"Notification settings registered!!!!");
     if (_command)
     {
-        NSLog(@"Has command");
+        NSLog(@"The settings are: %@", settings);
+	NSLog(@"Has command");
         [self hasPermission:_command];
         _command = NULL;
     }
